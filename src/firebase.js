@@ -6,6 +6,7 @@ import {
     createUserWithEmailAndPassword,
     signInWithEmailAndPassword,
     onAuthStateChanged,
+    signOut,
   } from "firebase/auth";
   import {
     getFirestore,
@@ -58,7 +59,8 @@ export const useFirebase=()=>useContext(FirebaseContext);
     signInWithEmailAndPassword(firebaseAuth, email, password);
 
     const isLoggedIn = user ? true : false;
-
+    console.log("isLoggedIn", isLoggedIn);
+    const signOutUser = () => signOut(firebaseAuth);
     const handleCreateNewListing = async ( amount,category,date,id,type,userID) => {
         return await addDoc(collection(firestore, "storagedata"), {
             amount,category,date,id,type,userID
@@ -96,6 +98,7 @@ export const useFirebase=()=>useContext(FirebaseContext);
         handleCreateNewListing,
         listalldata,
         deleteListing,
+        signOutUser,
     }}>
         {props.children}
     </FirebaseContext.Provider>

@@ -5,8 +5,9 @@ import { incomeCategories, expenseCategories, resetCategories } from './constant
 
 const useTransactions = (title) => {
   resetCategories();
-  const { transactions } = useContext(ExpenseTrackerContext);
-  const rightTransactions = transactions.filter((t) => t.type === title);
+  
+  const { arrytransactions } = useContext(ExpenseTrackerContext);
+  const rightTransactions = arrytransactions.filter((t) => t.type === title);
   const total = rightTransactions.reduce((acc, currVal) => acc += currVal.amount, 0);
   const categories = title === 'Income' ? incomeCategories : expenseCategories;
 
@@ -17,7 +18,8 @@ const useTransactions = (title) => {
   });
 
   const filteredCategories = categories.filter((sc) => sc.amount > 0);
-
+  console.log("filteredCategories",filteredCategories);
+  console.log("total",total);
   const chartData = {
     datasets: [{
       data: filteredCategories.map((c) => c.amount),

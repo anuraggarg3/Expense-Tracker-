@@ -10,7 +10,7 @@ const List = () => {
   const classes = useStyles();
   const firebase=useFirebase();
   const [data,setdata]=useState([]);
-  const { transactions, deleteTransaction } = useContext(ExpenseTrackerContext);
+  const { transactions, deleteTransaction ,arrytransactions} = useContext(ExpenseTrackerContext);
   useEffect(() => {
     const fetchData = async () => {
       await firebase.listalldata().then((docs) => {
@@ -19,10 +19,9 @@ const List = () => {
     };
 
     fetchData();
-  }, [transactions]);
+  }, [transactions,arrytransactions]);
   const handleDelete = async (id) => {
       await deleteTransaction(id);
-      setTimeout(window.location.reload(),1200) 
   };
   
   const usi=JSON.parse(localStorage.getItem('auth'));
